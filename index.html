@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Lambdasequence by lambdacrash</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/lambdacrash/LambdaSequence">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/lambdacrash/LambdaSequence/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/lambdacrash/LambdaSequence/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Lambdasequence</h1>
+          <p></p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/lambdacrash">lambdacrash</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h2>Introduction</h2>
+
+<p>LambdaSequence is a tool meant to draw the method calls sequence within your applications. It provides a java agent that
+you must configure within your application launch VM parameters. The java agent option is only 
+available since JVM &gt;= 1.5</p>
+
+<h2>Launch the agent</h2>
+
+<p>The agent tries enhancing all classes to log all method calls and return. </p>
+
+<p>It does NOT work with any of the class loaded by the SystemClassLoader, hence all JVM classes such as "String" are not checked.</p>
+
+<p>To run an agent which will open a dialog monitor by itself, add the following JVM parameters to your application:</p>
+
+<pre><code>-javaagent:/path/to/the/agent/lambdaSequence.jar=[options]
+</code></pre>
+
+<p>So, the available agent options are:</p>
+
+<ul>
+<li>
+<code>+&lt;package_name&gt;</code> : the specified package will be traced</li>
+<li>
+<code>-&lt;package_name&gt;</code> : the specified package will be not traced</li>
+<li>
+<code>file=/a/path/to/the_dump_file.lbds</code> : the log will be saved in this specified file
+If no file is specified, the default output will in your home directory nammed <code>call_trace-&lt;timestamp&gt;.lbds</code>
+</li>
+</ul><p>Example :
+  <code>-javaagent:/tmp/lambdaSequence.jar=+my.package,file=/tmp/dump.lbds</code>
+  Will imply the trace of only one package which nammed "my.package" and the log will be saved in <code>/tmp/dump.lbds</code></p>
+
+<h2>Launch the display engine</h2>
+
+<p>In order to launch this software to display your diagram, use this command line:</p>
+
+<pre><code>  java -jar lambdaSequence.jar /your/dump_file.lbds
+</code></pre>
+
+<p>Special commmands:
+If you want to save your diagram image into a file, juste press the <code>[s]</code> key on your keyboard and specify the file name.
+Example: </p>
+
+<pre><code>  /tmp/diagram.bmp
+</code></pre>
+
+<p>Color code:</p>
+
+<ul>
+<li>Constructor calls are displayed in red</li>
+<li>Method calls are displayed in blue</li>
+<li>Return call are displayed in grey</li>
+<li>Each thread is represented by a colored raw which contains the id of the thread ("Th id 12")</li>
+</ul><h2>NOTES</h2>
+
+<p>The source code of this software is not well documented yet. This is an alpha version distributed into order to get returns about bugs, desired features, ...</p>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
