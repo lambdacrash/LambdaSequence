@@ -14,11 +14,6 @@ public class CallerInfo extends SecurityManager
 	public static String getCallerClassName()
 	{
 		Class<?>[] context = caller.getClassContext();
-		//int i = 0;
-		//System.out.println("------------------------");
-		//for(Class<?> c : context )
-		//	System.out.println((i++)+" "+c.getName());
-		//getCallerName();
 		if(context.length>2)
 			return context[2].getName();
 		return null;
