@@ -1,4 +1,5 @@
 <project name="lambdaSequence" default="all">
+    <property name="target.report.dir" location="test-reports" />
     <path id="antpath">
         <fileset dir=".">
             <include name="**/*.jar"/>
@@ -13,13 +14,6 @@
         </javac>
     </target>
 
-    <target name="test">
-        <junit haltonfailure="true" printsummary="true">
-            <classpath refid="antpath" />
-            <test name="org.lambda.sequence.util.CallerInfoTest"/>
-        </junit>
-    </target>
-
     <target name="jar" depends="compile" description="create agent jar">
         <unzip dest="dist/">
             <fileset dir="lib/">
@@ -30,5 +24,29 @@
             <fileset dir="lib/javassist"/>
         </copy>
         <jar basedir="bin" destfile="dist/lambdaSequence.jar" manifest="Manifest.mf"/>
+    </target>
+
+    <target name="test" depends="compile">
+        <mkdir dir="${target.report.dir}" />
+        <junit haltonfailure="true" printsummary="true">
+            <formatter type="xml" />
+            <classpath refid="antpath" />
+            <batchtest todir="${target.report.dir}">
+                <fileset dir="src">
+                    <include name="**/*Test.java" />
+                    <exclude name="**/Test*All.java" />
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
+    <target name="report" depends="test">
+        <mkdir dir="${target.report.dir}/html" />
+        <junitreport todir="${target.report.dir}">
+            <fileset dir="${target.report.dir}">
+                <include name="TEST-*.xml" />
+            </fileset>
+            <report todir="${target.report.dir}/html" />
+        </junitreport>
     </target>
 </project>
