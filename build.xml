@@ -1,11 +1,17 @@
 <project name="lambdaSequence" default="all">
-  <target name="all" depends="compile,jar"/>
+  <target name="all" depends="compile, test,jar"/>
 
-  <target name="compile" description="compile classes">
-    <javac source="1.6" srcdir="src" destdir="bin" debug="true" 
-    	optimize="true" verbose="true" classpath="./lib">
-    </javac>
-  </target>
+    <target name="compile" description="compile classes">
+        <javac source="1.6" srcdir="src" destdir="bin" debug="true"
+               optimize="true" verbose="true" classpath="./lib">
+        </javac>
+    </target>
+
+    <target name="test">
+        <junit haltonfailure="true" printsummary="true">
+            <test name="org.lambda.sequence.util.CallerInfoTest"/>
+        </junit>
+    </target>
 
   <target name="jar" depends="compile" description="create agent jar">
   	<unzip dest="dist/">
