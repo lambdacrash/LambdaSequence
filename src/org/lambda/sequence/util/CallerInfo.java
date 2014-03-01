@@ -24,9 +24,6 @@ public class CallerInfo extends SecurityManager
 	{
 		String r = "";
 		StackTraceElement[] s = new Throwable().getStackTrace();
-		//System.out.println("------------------------");
-		//for(StackTraceElement e : s)
-		//	System.out.println("--> "+e);
 		if(s.length<3)
 			r += s[s.length-1];
 		else
