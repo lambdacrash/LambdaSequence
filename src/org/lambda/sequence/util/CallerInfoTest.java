@@ -1,6 +1,6 @@
 package org.lambda.sequence.util;
 
-import org.junit.Test;
+import org.junit.*;
 
 /**
  * Created by brice on 01/03/2014.

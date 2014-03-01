@@ -1,27 +1,34 @@
 <project name="lambdaSequence" default="all">
-  <target name="all" depends="compile, test,jar"/>
+    <path id="antpath">
+        <fileset dir=".">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+    <target name="all" depends="compile,jar"/>
 
     <target name="compile" description="compile classes">
         <javac source="1.6" srcdir="src" destdir="bin" debug="true"
-               optimize="true" verbose="true" classpath="./lib">
+               optimize="true" verbose="true" >
+            <classpath refid="antpath" />
         </javac>
     </target>
 
     <target name="test">
         <junit haltonfailure="true" printsummary="true">
+            <classpath refid="antpath" />
             <test name="org.lambda.sequence.util.CallerInfoTest"/>
         </junit>
     </target>
 
-  <target name="jar" depends="compile" description="create agent jar">
-  	<unzip dest="dist/">
-  				<fileset dir="lib/">
-  					<include name="*.jar"/>				
-  				</fileset>
-  			</unzip>
-  	<copy todir="bin/javassist">
-  		<fileset dir="lib/javassist"></fileset>
-  	</copy>
-    <jar basedir="bin" destfile="dist/lambdaSequence.jar" manifest="Manifest.mf"/>
-  </target>
+    <target name="jar" depends="compile" description="create agent jar">
+        <unzip dest="dist/">
+            <fileset dir="lib/">
+                <include name="*.jar"/>
+            </fileset>
+        </unzip>
+        <copy todir="bin/javassist">
+            <fileset dir="lib/javassist"/>
+        </copy>
+        <jar basedir="bin" destfile="dist/lambdaSequence.jar" manifest="Manifest.mf"/>
+    </target>
 </project>
