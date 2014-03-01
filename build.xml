@@ -5,7 +5,7 @@
             <include name="**/*.jar"/>
         </fileset>
     </path>
-    <target name="all" depends="compile,jar"/>
+    <target name="all" depends="compile, test, report, jar"/>
 
     <target name="compile" description="compile classes">
         <javac source="1.6" srcdir="src" destdir="bin" debug="true"
