@@ -1,5 +1,8 @@
 <project name="lambdaSequence" default="all">
+
     <property name="target.report.dir" location="test-reports" />
+    <property name="emma.dir" location="emma" />
+
     <path id="antpath">
         <fileset dir=".">
             <include name="**/*.jar"/>
@@ -48,5 +51,34 @@
             </fileset>
             <report todir="${target.report.dir}/html" />
         </junitreport>
+    </target>
+
+    <taskdef resource="emma_ant.properties" classpathref="antpath" />
+    <target name="coverage.instrumentation" depends="compile">
+        <emma enabled="true">
+            <instr
+                    mode="overwrite"
+                    merge="true"
+                    destdir="instr"
+                    metadatafile="${emma.dir}/codecoverage.emma">
+                <instrpath>
+                    <path location="./lib"/>
+                </instrpath>
+                <!-- don't want coverage of Test classes -->
+                <filter excludes="*Test*"/>
+            </instr>
+        </emma>
+    </target>
+
+    <target name="coverage.report" depends="coverage.instrumentation">
+        <emma enabled="true">
+            <report sourcepath="src" depth="method">
+                <fileset dir="${emma.dir}" >
+                    <include name="*.emma" />
+                </fileset>
+                <txt outfile="${emma.dir}/reports/coverage.txt" />
+                <html outfile="${emma.dir}/reports/coverage.html" />
+            </report>
+        </emma>
     </target>
 </project>
