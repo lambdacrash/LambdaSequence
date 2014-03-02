@@ -66,7 +66,7 @@
     </path>
     <taskdef resource="emma_ant.properties" classpathref="emma.lib" />
     <target name="emma" description="turns on EMMA's on-the-fly instrumentation mode" >
-        <property name="emma.enabled" value="true" />
+        <property name="emma.enabled" value="false" />
     </target>
 
     <property name="coverage.dir" value="${basedir}/coverage" />
