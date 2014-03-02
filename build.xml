@@ -55,13 +55,6 @@
         </junitreport>
     </target>
 
-    <target name="init" >
-        <mkdir dir="${out.dir}" />
-        <path id="run.classpath" >
-            <pathelement location="${out.dir}" />
-        </path>
-    </target>
-
     <!-- directory that contains emma.jar and emma_ant.jar: -->
     <property name="emma.dir" value="${basedir}/lib" />
     <property name="src.dir" value="${basedir}/src" />
@@ -72,50 +65,23 @@
         <pathelement location="${emma.dir}/emma_ant.jar" />
     </path>
     <taskdef resource="emma_ant.properties" classpathref="emma.lib" />
-    <target name="emma" depends="init" description="turns on EMMA's on-the-fly instrumentation mode" >
+    <target name="emma" description="turns on EMMA's on-the-fly instrumentation mode" >
         <property name="emma.enabled" value="true" />
     </target>
 
     <property name="coverage.dir" value="${basedir}/coverage" />
 
-    <target name="run-emma" depends="compile" description="runs the examples" >
-        <emmajava enabled="${emma.enabled}" libclasspathref="emma.lib"
+    <target name="run-emma" depends="compile, emma" >
+        <emmajava enabled="${emma.enabled}" libclasspathref="antpath"
                   fullmetadata="yes" sourcepath="${basedir}/bin"
-                  classname="MainFrame"
-                  classpathref="run.classpath"
+                  classname="org.lambda.sequence.gui.MainFrame"
+                  classpath="bin"
                 >
+            <filter excludes="javassist.*" />
             <txt outfile="${basedir}/coverage.txt" />
             <xml outfile="${basedir}/coverage.xml" />
             <html outfile="${basedir}/coverage.html"  />
         </emmajava>
     </target>
 
-
-
-    <!--target name="coverage.instrumentation" depends="compile">
-        <emma enabled="true">
-            <instr
-                    mode="overwrite"
-                    merge="true"
-                    destdir="instr"
-                    metadatafile="${emma.dir}/codecoverage.emma">
-                <instrpath>
-                    <path location="./lib"/>
-                </instrpath>
-                <filter excludes="*Test*"/>
-            </instr>
-        </emma>
-    </target>
-
-    <target name="coverage.report" depends="coverage.instrumentation">
-        <emma enabled="true">
-            <report sourcepath="src" depth="method">
-                <fileset dir="${emma.dir}" >
-                    <include name="*.emma" />
-                </fileset>
-                <txt outfile="./coverage.txt" />
-                <html outfile="./coverage.html" />
-            </report>
-        </emma>
-    </target-->
 </project>
