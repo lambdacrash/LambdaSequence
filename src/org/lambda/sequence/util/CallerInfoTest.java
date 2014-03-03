@@ -35,6 +35,7 @@ public class CallerInfoTest {
 
     @Test
     public void testForFun() throws Exception {
+
         if (true) {
             throw new AssertionError();
         }
