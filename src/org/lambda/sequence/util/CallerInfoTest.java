@@ -32,4 +32,11 @@ public class CallerInfoTest {
             throw new AssertionError();
         }
     }
+
+    @Test
+    public void testForFun() throws Exception {
+        if (true) {
+            throw new AssertionError();
+        }
+    }
 }
