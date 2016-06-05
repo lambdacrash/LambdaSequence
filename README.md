@@ -68,7 +68,7 @@ Color code:
 * Constructor calls are displayed in red
 * Method calls are displayed in blue
 * Return call are displayed in grey
-* Each thread is represented by a colored raw which contains the id of the thread ("Th id 12")
+* Each thread is represented by a colored row which contains the id of the thread ("Th id 12")
 
 Call representation:
 - Class A to class B call
